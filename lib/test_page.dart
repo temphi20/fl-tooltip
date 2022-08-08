@@ -20,58 +20,62 @@ class TestPage extends StatelessWidget {
               //   event.localPosition
               // ].toString());
               // response?.lineBarSpots?[0].distance;
-              final maxY = StateManager.of(context).spots2.last;
-              final per1 = maxY / (MediaQuery.of(context).size.height * 0.9);
-              final nearnessY = maxY - (per1 * event.localPosition!.dy);
-              debugPrint([maxY, per1, nearnessY].toString());
+              if (event.localPosition != null) {
+                if (response != null && response.lineBarSpots != null) {
+                  final maxY = StateManager.of(context).spots2.last;
+                  final per1 =
+                      maxY / (MediaQuery.of(context).size.height * 0.9);
+                  final nearnessY = maxY - (per1 * event.localPosition!.dy);
+                  // StateManager.of(context).touchIndex
+                  // debugPrint(response.lineBarSpots!.length.toString());
+                  // final LineBarSpot currentSpots =
+                  // debugPrint([
+                  //   response.lineBarSpots![0].barIndex,
+                  //   response.lineBarSpots![1].barIndex,
+                  //   response.lineBarSpots![2].barIndex
+                  // ].toString());
+                  // debugPrint([
+                  //   response.lineBarSpots![0].x,
+                  //   response.lineBarSpots![1].x,
+                  //   response.lineBarSpots![2].x
+                  // ].toString());
+                  // debugPrint([
+                  //   response.lineBarSpots![0].y,
+                  //   response.lineBarSpots![1].y,
+                  //   response.lineBarSpots![2].y
+                  // ].toString());
+                  // debugPrint([
+                  //   response.lineBarSpots![0].stringify,
+                  //   // response.lineBarSpots![1].y,
+                  //   // response.lineBarSpots![2].y
+                  // ].toString());
+                  int index = 0;
+                  double min = double.infinity;
+                  for (var spot in response.lineBarSpots!) {
+                    double dis = spot.y - nearnessY;
+                    if (dis < 0) dis = dis * -1;
+                    debugPrint(
+                        "[${response.lineBarSpots!.indexOf(spot)}]distance: $dis");
+                    if (min > dis) {
+                      min = dis;
+                      index = response.lineBarSpots!.indexOf(spot);
+                    }
+                  }
+
+                  StateManager.of(context).setTooltip(index);
+                  // final tmp = List.generate(
+                  //     3, (index) => response.lineBarSpots![index].distance);
+                  // debugPrint(event.localPosition.toString());
+                  // debugPrint(tmp.toString());
+                }
+              }
+
+              // debugPrint([maxY, per1, nearnessY].toString());
               // debugPrint([
               //   event.localPosition!.direction,
               //   event.localPosition!.distance,
               //   // event.localPosition!.distanceSquared
               // ].toString());
-              if (response != null && response.lineBarSpots != null) {
-                // StateManager.of(context).touchIndex
-                // debugPrint(response.lineBarSpots!.length.toString());
-                // final LineBarSpot currentSpots =
-                // debugPrint([
-                //   response.lineBarSpots![0].barIndex,
-                //   response.lineBarSpots![1].barIndex,
-                //   response.lineBarSpots![2].barIndex
-                // ].toString());
-                // debugPrint([
-                //   response.lineBarSpots![0].x,
-                //   response.lineBarSpots![1].x,
-                //   response.lineBarSpots![2].x
-                // ].toString());
-                // debugPrint([
-                //   response.lineBarSpots![0].y,
-                //   response.lineBarSpots![1].y,
-                //   response.lineBarSpots![2].y
-                // ].toString());
-                // debugPrint([
-                //   response.lineBarSpots![0].stringify,
-                //   // response.lineBarSpots![1].y,
-                //   // response.lineBarSpots![2].y
-                // ].toString());
-                int index = 0;
-                double min = double.infinity;
-                for (var spot in response.lineBarSpots!) {
-                  double dis = spot.y - nearnessY;
-                  if (dis < 0) dis = dis * -1;
-                  debugPrint(
-                      "[${response.lineBarSpots!.indexOf(spot)}]distance: $dis");
-                  if (min > dis) {
-                    min = dis;
-                    index = response.lineBarSpots!.indexOf(spot);
-                  }
-                }
-
-                StateManager.of(context).setTooltip(index);
-                // final tmp = List.generate(
-                //     3, (index) => response.lineBarSpots![index].distance);
-                // debugPrint(event.localPosition.toString());
-                // debugPrint(tmp.toString());
-              }
 
               // response?.lineBarSpots;
               // debugPrint(response?.lineBarSpots?[0].distance.toString());
