@@ -74,25 +74,20 @@ class TestPage extends StatelessWidget {
                       return List.generate(
                         StateManager.of(context).spotss.length,
                         (index) {
-                          if (index == 0) {
+                          if (index ==
+                              (StateManager.of(context).spotss.length ~/ 2)) {
                             return LineTooltipItem(
                               StateManager.of(context).tooltip,
                               const TextStyle(color: Colors.white),
                             );
                           } else {
                             return LineTooltipItem(
-                                "", const TextStyle(fontSize: 0));
+                              "",
+                              const TextStyle(fontSize: 0),
+                            );
                           }
                         },
                       );
-                      // [
-                      //   LineTooltipItem("", const TextStyle(fontSize: 0)),
-                      //   LineTooltipItem(
-                      //     StateManager.of(context).tooltip,
-                      //     const TextStyle(color: Colors.white),
-                      //   ),
-                      //   LineTooltipItem("", const TextStyle(fontSize: 0)),
-                      // ];
                     },
                   ),
                 ),
@@ -115,7 +110,6 @@ class TestPage extends StatelessWidget {
             ),
           ),
           Container(
-            width: 30,
             height: getChartFullHeight(context),
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
             child: const Text(

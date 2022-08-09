@@ -48,7 +48,7 @@ class StateManager extends ChangeNotifier {
   }
 
   void setTooltip(int index) {
-    double y = spotss[index][touchIndex];
+    final y = (spotss[index][touchIndex]).toStringAsFixed(3);
     tooltip = "($touchIndex, $y)";
     // debugPrint(tooltip);
     // debugPrint(index.toString());
