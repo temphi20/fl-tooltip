@@ -71,14 +71,28 @@ class TestPage extends StatelessWidget {
                     getTooltipItems: (spots) {
                       StateManager.of(context)
                           .setTouchIndex(spots[0].spotIndex);
-                      return [
-                        LineTooltipItem("", const TextStyle(fontSize: 0)),
-                        LineTooltipItem(
-                          StateManager.of(context).tooltip,
-                          const TextStyle(color: Colors.white),
-                        ),
-                        LineTooltipItem("", const TextStyle(fontSize: 0)),
-                      ];
+                      return List.generate(
+                        StateManager.of(context).spotss.length,
+                        (index) {
+                          if (index == 0) {
+                            return LineTooltipItem(
+                              StateManager.of(context).tooltip,
+                              const TextStyle(color: Colors.white),
+                            );
+                          } else {
+                            return LineTooltipItem(
+                                "", const TextStyle(fontSize: 0));
+                          }
+                        },
+                      );
+                      // [
+                      //   LineTooltipItem("", const TextStyle(fontSize: 0)),
+                      //   LineTooltipItem(
+                      //     StateManager.of(context).tooltip,
+                      //     const TextStyle(color: Colors.white),
+                      //   ),
+                      //   LineTooltipItem("", const TextStyle(fontSize: 0)),
+                      // ];
                     },
                   ),
                 ),

@@ -14,6 +14,9 @@ class StateManager extends ChangeNotifier {
     List.generate(num, (index) => index.toDouble()),
     List.generate(num, (index) => index.toDouble() * index.toDouble()),
     List.generate(num, (index) => sqrt(index.toDouble())),
+    List.generate(num, (index) => sin(index) * sin(index) * 100),
+    List.generate(num, (index) => cos(index) * cos(index) * index * index),
+    List.generate(num, (index) => log(index + 10) * 100),
   ];
   List<Color> get colors => List.generate(
       spotss.length,
@@ -47,8 +50,8 @@ class StateManager extends ChangeNotifier {
   void setTooltip(int index) {
     double y = spotss[index][touchIndex];
     tooltip = "($touchIndex, $y)";
-    debugPrint(tooltip);
-    debugPrint(index.toString());
+    // debugPrint(tooltip);
+    // debugPrint(index.toString());
     // notifyListeners();
   }
 }
