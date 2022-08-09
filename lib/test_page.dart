@@ -45,15 +45,19 @@ class TestPage extends StatelessWidget {
                     // debugPrint(event.localPosition.toString());
                     if (event.localPosition != null) {
                       if (response != null && response.lineBarSpots != null) {
+                        // Y축 눈금의 갯수
                         final maxY = StateManager.of(context).maxY;
+                        // 길이당 눈금의 크기
                         final per1 = maxY /
                             (getChartFullHeight(context) - verticalPadding * 2);
-                        final nearnessY =
-                            maxY - (per1 * event.localPosition!.dy);
+                        // 현재 마우스 포인터가 위치한 곳의 Y값
+                        final y = maxY - (per1 * event.localPosition!.dy);
+
+                        // 현재 마우스 위치에서 가장 가까운 y값을 가진 spots 찾기
                         int index = 0;
                         double min = double.infinity;
                         for (var spot in response.lineBarSpots!) {
-                          double dis = spot.y - nearnessY;
+                          double dis = spot.y - y;
                           if (dis < 0) dis = dis * -1;
                           debugPrint(
                               "[${response.lineBarSpots!.indexOf(spot)}]distance: $dis");
