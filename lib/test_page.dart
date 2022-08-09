@@ -7,7 +7,7 @@ class TestPage extends StatelessWidget {
   const TestPage({Key? key}) : super(key: key);
   final double verticalPadding = 30;
 
-  double getFullHeight(BuildContext context) =>
+  double getChartFullHeight(BuildContext context) =>
       MediaQuery.of(context).size.height * 0.9;
 
   @override
@@ -19,7 +19,7 @@ class TestPage extends StatelessWidget {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
-            height: getFullHeight(context),
+            height: getChartFullHeight(context),
             child: LineChart(
               LineChartData(
                 titlesData: FlTitlesData(
@@ -47,7 +47,7 @@ class TestPage extends StatelessWidget {
                       if (response != null && response.lineBarSpots != null) {
                         final maxY = StateManager.of(context).maxY;
                         final per1 = maxY /
-                            (getFullHeight(context) - verticalPadding * 2);
+                            (getChartFullHeight(context) - verticalPadding * 2);
                         final nearnessY =
                             maxY - (per1 * event.localPosition!.dy);
                         int index = 0;
@@ -102,7 +102,7 @@ class TestPage extends StatelessWidget {
           ),
           Container(
             width: 30,
-            height: getFullHeight(context),
+            height: getChartFullHeight(context),
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
             child: const Text(
               "테\n스\n트\n용",
