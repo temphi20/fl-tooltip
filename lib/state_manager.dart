@@ -9,29 +9,43 @@ class StateManager extends ChangeNotifier {
       Provider.of<StateManager>(context);
   static StateManager of(BuildContext context) =>
       Provider.of<StateManager>(context, listen: false);
+  static Random rnd = Random();
+  final List<List<double>> spotss = [
+    List.generate(num, (index) => index.toDouble()),
+    List.generate(num, (index) => index.toDouble() * index.toDouble()),
+    List.generate(num, (index) => sqrt(index.toDouble())),
+  ];
+  List<Color> get colors => List.generate(
+      spotss.length,
+      (index) => Color.fromARGB(
+          255, rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255)));
+  // final List<double> spots1 = List.generate(num, (index) => index.toDouble());
+  // final List<double> spots2 =
+  //     List.generate(num, (index) => index.toDouble() * index.toDouble());
+  // final List<double> spots3 =
+  //     List.generate(num, (index) => sqrt(index.toDouble()));
 
-  final List<double> spots1 = List.generate(num, (index) => index.toDouble());
-  final List<double> spots2 =
-      List.generate(num, (index) => index.toDouble() * index.toDouble());
-  final List<double> spots3 =
-      List.generate(num, (index) => sqrt(index.toDouble()));
-
+  // double maxY = 0;
   int touchIndex = 0;
   String tooltip = "";
+
+  double get maxY {
+    double max = double.negativeInfinity;
+    for (var spots in spotss) {
+      for (var spot in spots) {
+        if (max < spot) max = spot;
+      }
+    }
+    return max;
+  }
+
   void setTouchIndex(int index) {
     touchIndex = index;
     // notifyListeners();
   }
 
   void setTooltip(int index) {
-    double y = 0;
-    if (index == 0) {
-      y = spots1[touchIndex];
-    } else if (index == 1) {
-      y = spots2[touchIndex];
-    } else if (index == 2) {
-      y = spots3[touchIndex];
-    }
+    double y = spotss[index][touchIndex];
     tooltip = "($touchIndex, $y)";
     debugPrint(tooltip);
     debugPrint(index.toString());
