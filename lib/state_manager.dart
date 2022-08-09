@@ -14,7 +14,7 @@ class StateManager extends ChangeNotifier {
     List.generate(num, (index) => index.toDouble()),
     List.generate(num, (index) => index.toDouble() * index.toDouble()),
     List.generate(num, (index) => sqrt(index.toDouble())),
-    List.generate(num, (index) => sin(index) * sin(index) * 100),
+    List.generate(num, (index) => sin(index) * 100),
     List.generate(num, (index) => cos(index) * cos(index) * index * index),
     List.generate(num, (index) => log(index + 10) * 100),
   ];
@@ -31,15 +31,18 @@ class StateManager extends ChangeNotifier {
   // double maxY = 0;
   int touchIndex = 0;
   String tooltip = "";
+  double minY = double.infinity;
 
-  double get maxY {
+  double get sizeY {
+    // double min = double.infinity;
     double max = double.negativeInfinity;
     for (var spots in spotss) {
       for (var spot in spots) {
         if (max < spot) max = spot;
+        if (minY > spot) minY = spot;
       }
     }
-    return max;
+    return max - minY;
   }
 
   void setTouchIndex(int index) {
